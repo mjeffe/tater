@@ -1,8 +1,8 @@
-# Media Machine: ASUS Chromebook "Kefka" Home Media Center
+# tater: A couch potato's minimalist media center
 
-A repurposed ASUS Chromebook running Debian 13, connected to the living room
-TV via HDMI. It plays movies and music from a USB drive, streams online
-services through a web browser, and serves as a general family media hub.
+A repurposed ASUS Chromebook "Kefka" running Debian 13, connected to the
+living room TV via HDMI. It plays movies and music from a USB drive, streams
+online services, and serves as a general family media hub.
 
 ## Hardware at a Glance
 
@@ -43,7 +43,7 @@ Full hardware details: see `docs/machine-summary.md`.
 ## Directory Structure
 
 ```
-~/src/mediamachine/
+~/src/tater/
   README.md               This file
   AGENTS.md               Rules and context for AI coding agents
   docs/
