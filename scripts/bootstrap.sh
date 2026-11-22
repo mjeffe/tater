@@ -196,7 +196,18 @@ sudo apt install -y --no-install-recommends \
   firefox-esr \
   vlc mpv \
   featherpad \
-  qlipper
+  qlipper \
+  xclip
+
+# Enable gnome-keyring SSH agent under LXQt.
+# The default autostart file restricts to GNOME/Unity/MATE only.
+# We copy it to the user's autostart dir and remove the restriction
+# so gnome-keyring manages SSH keys (with passphrase caching) instead
+# of the plain ssh-agent that Xsession would otherwise launch.
+mkdir -p /home/$USERNAME/.config/autostart
+cp /etc/xdg/autostart/gnome-keyring-ssh.desktop /home/$USERNAME/.config/autostart/
+sed -i '/^OnlyShowIn=/d' /home/$USERNAME/.config/autostart/gnome-keyring-ssh.desktop
+chown $USERNAME:$USERNAME /home/$USERNAME/.config/autostart/gnome-keyring-ssh.desktop
 
 # ============================================================
 # PHASE 11: Install and configure SSH server
