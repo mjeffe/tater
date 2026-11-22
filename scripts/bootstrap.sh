@@ -209,6 +209,20 @@ cp /etc/xdg/autostart/gnome-keyring-ssh.desktop /home/$USERNAME/.config/autostar
 sed -i '/^OnlyShowIn=/d' /home/$USERNAME/.config/autostart/gnome-keyring-ssh.desktop
 chown $USERNAME:$USERNAME /home/$USERNAME/.config/autostart/gnome-keyring-ssh.desktop
 
+# Point SSH_AUTH_SOCK at gnome-keyring's ssh socket for X sessions.
+# The autostart entry above starts the ssh component, but LXQt does not
+# import the socket path into the session environment. As a result ssh
+# still falls back to the plain ssh-agent started by Xsession, which
+# does not cache passphrases. Setting the variable in ~/.xsessionrc
+# (sourced before the Xsession ssh-agent script) fixes that.
+cat > /home/$USERNAME/.xsessionrc <<'EOF'
+# Use gnome-keyring's SSH agent instead of the plain ssh-agent that
+# Xsession would otherwise launch. gnome-keyring caches SSH key
+# passphrases, so ssh/git only prompt once per session.
+export SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"
+EOF
+chown $USERNAME:$USERNAME /home/$USERNAME/.xsessionrc
+
 # ============================================================
 # PHASE 11: Install and configure SSH server
 # ============================================================
