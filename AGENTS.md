@@ -5,7 +5,8 @@ Rules and context for AI coding agents working on this project.
 ## Writing Rules
 
 All documentation files (README.md, AGENTS.md, docs/roadmap.md,
-docs/machine-summary.md, and any new docs) must follow these rules:
+docs/machine-summary.md, playbooks/, and any new docs) must follow
+these rules:
 
 1. Write in plain ASCII only. No Unicode characters, no em-dashes, no smart
    quotes, no fancy punctuation. Use --- for separators, not box-drawing
@@ -45,6 +46,23 @@ Media files live on an external USB drive, never on the internal eMMC.
 4. Avoid interactive prompts. Use `-y` flags and set defaults explicitly.
 5. Test for available disk space before downloading or installing large
    packages.
+
+## Playbooks
+
+The `playbooks/` directory holds markdown instructions that an AI agent
+reads and executes. They differ from the shell scripts in `scripts/`.
+
+1. Playbooks are declarative and single-path. They describe the machine
+   as it is today, not every option it could be. No branching for
+   alternative desktops or tools.
+2. Each playbook states a goal, the constraints, reference commands, and
+   how to verify the result. Reference commands are illustrative, not
+   gospel. Package names change between Debian releases, so an agent
+   should confirm current names with apt or dpkg.
+3. When the machine changes, update the relevant playbook in the same
+   commit as the change.
+4. Alternatives and future experiments belong in docs/roadmap.md, not in
+   the playbooks.
 
 ## When Making Changes
 
