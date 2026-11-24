@@ -63,6 +63,13 @@ reads and executes. They differ from the shell scripts in `scripts/`.
    commit as the change.
 4. Alternatives and future experiments belong in docs/roadmap.md, not in
    the playbooks.
+5. Shell scripts are derived from playbooks, not the other way around.
+   An agent reads a playbook, confirms current package names, then
+   generates or updates the matching script in scripts/ as a repeatable
+   snapshot. Scripts are disposable; the playbook is the source of truth.
+6. Not every step is scriptable. Manual steps (browser extensions, router
+   settings, per-drive fstab UUIDs) stay in the playbook as documented
+   steps and are not forced into scripts.
 
 ## When Making Changes
 

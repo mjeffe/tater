@@ -45,8 +45,6 @@ These apply to every playbook. Re-read them before each step.
 
 ## Reading Order
 
-Only 00-index.md and 05-browser.md exist so far. The rest are planned.
-
 - 00-index.md - this file
 - 01-base-system.md - fresh Debian install, user, locale, disk layout
 - 02-desktop.md - purge GNOME, install LXQt on Openbox with SDDM
@@ -59,6 +57,26 @@ Only 00-index.md and 05-browser.md exist so far. The rest are planned.
 
 - scripts/ holds shell scripts that a human runs directly.
 - scripts/bootstrap.sh is the current known-good end-to-end installer.
+  It predates the playbooks and may overstate the current machine state.
 - playbooks/ are the source of truth for intent. If a script and a
   playbook disagree, trust the playbook and update the script.
-- Keep scripts/ as a reference for a fresh install, per AGENTS.md.
+
+### Script generation workflow
+
+1. The agent reads a playbook.
+2. The agent confirms current reality on the machine (apt, dpkg, df,
+   hardware) and works out the right package names for this release.
+3. The agent generates or updates the matching script under scripts/
+   from the playbook. The script captures the exact commands to run.
+4. A human reviews the script, then runs it. These are sudo and often
+   destructive operations.
+5. The agent verifies the result against the playbook Verify section and
+   fixes any drift.
+
+Scripts are derived snapshots. They go stale when package names change,
+and the agent regenerates them from the playbook. Never hand-maintain
+both copies.
+
+Not every step is scriptable. Manual steps (browser extensions, router
+settings, per-drive fstab UUIDs) stay documented in the playbook and are
+not forced into scripts.
