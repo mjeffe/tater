@@ -38,7 +38,7 @@ Full hardware details: see `docs/machine-summary.md`.
 - **Media players**: VLC, mpv
 - **Browser**: Firefox ESR
 - **Sound**: PipeWire
-- **SSH**: OpenSSH server, restricted to local network
+- **SSH**: OpenSSH client installed; server not yet set up (see playbooks/03-ssh-and-firewall.md)
 
 ## Directory Structure
 
@@ -49,6 +49,10 @@ Full hardware details: see `docs/machine-summary.md`.
   docs/
     roadmap.md            Future plans and experiments
     machine-summary.md    Detailed hardware and software profile
+  playbooks/
+    00-index.md           Ground rules, constraints, reading order
+    reconcile.md          Audit, apply, adopt procedure
+    01..06-*.md           Setup and configuration playbooks
   scripts/
     bootstrap.sh          Master script: fresh Debian install to media center
     cleanup-and-install-lxqt.sh  Purge GNOME, install LXQt (first run)
@@ -59,7 +63,7 @@ Full hardware details: see `docs/machine-summary.md`.
 - Use the wireless keyboard and mouse (Logitech Unifying Receiver) for
   normal interaction.
 - SSH in from another machine on the local network for file transfers or
-  remote maintenance.
+  remote maintenance (requires the SSH server from playbook 03).
 - Media files are stored on an external USB drive mounted at `/mnt/media`.
 - To play a video: open VLC or mpv, browse to `/mnt/media/`, and play.
 - For streaming services: open Firefox and navigate to the service.
@@ -76,3 +80,4 @@ sudo mount /mnt/media
 # Check what is using space
 du -sh /home/*/
 ```
+
