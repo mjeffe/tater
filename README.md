@@ -68,6 +68,22 @@ Full hardware details: see `docs/machine-summary.md`.
 - To play a video: open VLC or mpv, browse to `/mnt/media/`, and play.
 - For streaming services: open Firefox and navigate to the service.
 
+## Reconcile
+
+Bring the machine and the playbooks into agreement. Three one-way verbs:
+
+- **audit**: read-only compare. The agent checks each playbook's Desired
+  State against the machine and reports OK, MISSING, EXTRA, or DIFFERENT.
+  Changes nothing.
+- **apply**: make the machine match the playbooks. Used for MISSING items
+  and for reverting an accidental change.
+- **adopt**: make the playbooks match the machine. Used when a manual
+  change was intentional and should be kept.
+
+Usage: ask the agent to "audit the playbooks", then apply or adopt each
+finding. Never let the agent auto-apply an EXTRA or DIFFERENT finding.
+Those always need your decision. Full details: playbooks/reconcile.md.
+
 ## Quick Reference: Common Tasks
 
 ```sh
