@@ -49,13 +49,22 @@ right hostname, user, locale, timezone, and apt sources for firmware.
        sudo timedatectl set-timezone America/Chicago
        sudo localectl set-locale LANG=en_US.UTF-8
 
-## Verify
+## Desired State
 
-- apt update completes without errors.
-- df -h / shows the root partition with room to spare.
-- hostnamectl shows Static hostname: mediaman.
-- locale shows LANG=en_US.UTF-8.
-- timedatectl shows Time zone: America/Chicago.
+- Sources: /etc/apt/sources.list has active deb lines for trixie,
+  trixie-security, and trixie-updates, each with main and
+  non-free-firmware.
+  Check: grep -E '^deb ' /etc/apt/sources.list
+- Package intel-microcode: installed.
+- Package firmware-iwlwifi: installed.
+- Hostname: mediaman.
+  Check: hostnamectl
+- Locale: LANG=en_US.UTF-8.
+  Check: locale
+- Timezone: America/Chicago.
+  Check: timedatectl
+- Root filesystem: under 60 percent used.
+  Check: df -h /
 
 ## Gotchas
 

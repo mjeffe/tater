@@ -20,6 +20,19 @@ reference commands, and how to verify the result.
   docs/roadmap.md.
 - When the machine changes, update the relevant playbook in the same
   commit as the change. The playbooks should always match reality.
+- To compare the machine against the playbooks, follow the audit,
+  apply, adopt procedure in reconcile.md.
+
+## Vocabulary
+
+Three one-way verbs describe every reconciliation action.
+
+- audit: read-only comparison of the machine against the playbooks.
+  Produces a report and changes nothing.
+- apply: make the machine match a playbook. The playbook does not change.
+- adopt: make a playbook match the machine. The machine does not change.
+
+These are defined here and used in every playbook and in reconcile.md.
 
 ## Global Constraints
 
@@ -46,6 +59,7 @@ These apply to every playbook. Re-read them before each step.
 ## Reading Order
 
 - 00-index.md - this file
+- reconcile.md - audit, apply, adopt procedure
 - 01-base-system.md - fresh Debian install, user, locale, disk layout
 - 02-desktop.md - purge GNOME, install LXQt on Openbox with SDDM
 - 03-ssh-and-firewall.md - SSH restricted to local network, UFW

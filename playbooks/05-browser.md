@@ -59,13 +59,17 @@ video decode.
 
        media.ffmpeg.vaapi.enabled = true
 
-## Verify
+## Desired State
 
-- Load a heavy news site with uBlock Origin on and off. CPU use should
-  drop noticeably with it on.
-- Play a 1080p YouTube video with enhanced-h264ify forcing H.264. CPU use
-  should stay low because the GPU is decoding.
-- vainfo lists H264 profiles and HEVCMain, and does not list VP9.
+- Package firefox-esr: installed.
+- VA-API: vainfo lists H264 and HEVCMain profiles, and does not list VP9.
+- Firefox compositing: WebRender.
+  Check: about:support, Compositing row
+- Extension uBlock Origin: installed (manual, not a Debian package).
+- Extension enhanced-h264ify: installed, with VP9 and AV1 blocked.
+- Preference media.ffmpeg.vaapi.enabled: true.
+  Check: about:config
+- CPU use stays low while playing a 1080p YouTube video.
 
 ## Gotchas
 

@@ -51,12 +51,19 @@ no PgUp/PgDn keys, and daily-use notes.
    - SSH in from another LAN machine for file transfers and maintenance.
    - Media lives at /mnt/media on the external USB drive.
 
-## Verify
+## Desired State
 
-- After a session restart, ssh-add -l lists the loaded keys and uses the
-  gnome-keyring socket.
-- Alt+1 through Alt+9 and Alt+0 switch QTerminal tabs.
-- Middle-click closes a tab (QTerminal default).
+- File ~/.config/autostart/gnome-keyring-ssh.desktop: exists, with no
+  OnlyShowIn line.
+  Check: grep -c OnlyShowIn ~/.config/autostart/gnome-keyring-ssh.desktop
+- File ~/.xsessionrc: exports SSH_AUTH_SOCK pointing at the keyring
+  socket.
+  Check: cat ~/.xsessionrc
+- QTerminal shortcuts: Tab 1 through Tab 9 bound to Alt+1 through Alt+9,
+  and Tab 10 bound to Alt+0.
+  Check: grep -E 'Tab%20[0-9]+' ~/.config/qterminal.org/qterminal.ini
+- ssh-add -l lists loaded keys after a session restart.
+- Alt+number switches QTerminal tabs.
 
 ## Gotchas
 

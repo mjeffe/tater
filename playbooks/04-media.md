@@ -58,12 +58,20 @@ hardware video decode, with sound routed to the TV (HDMI) or the stereo
    Use pavucontrol-qt (LXQt volume control) to pick the output per app.
    PipeWire keeps the routing simple.
 
-## Verify
+## Desired State
 
-- lsblk shows the USB drive mounted at /mnt/media.
-- vainfo lists H264 profiles and HEVCMain, and does not list VP9.
-- mpv --hwdec=vaapi plays a 1080p H.264 file with low CPU use.
-- Sound comes out of the correct output for movies and music.
+- Directory /mnt/media: exists and is owned by mjeffe.
+  Check: ls -ld /mnt/media
+- /etc/fstab: has an entry mounting the media drive UUID at /mnt/media
+  with ext4 and noatime.
+  Check: grep media /etc/fstab
+- Mount /mnt/media: mounted.
+  Check: findmnt /mnt/media
+- VA-API: vainfo lists H264 and HEVCMain profiles, and does not list VP9.
+- mpv config ~/.config/mpv/mpv.conf: contains hwdec=vaapi.
+  Check: grep hwdec ~/.config/mpv/mpv.conf
+- Audio: sound reaches the TV (HDMI) for movies and the stereo
+  (headphone jack) for music.
 
 ## Gotchas
 

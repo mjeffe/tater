@@ -46,13 +46,20 @@ firewall that denies all other inbound traffic.
        sudo ufw allow from 192.168.0.0/16 to any port 22 proto tcp
        sudo ufw --force enable
 
-## Verify
+## Desired State
 
-- systemctl is-enabled ssh shows enabled.
-- systemctl is-active ssh shows active.
-- sudo ufw status verbose shows incoming denied by default and SSH
-  allowed only from the local subnet.
-- From another machine on the LAN, ssh mjeffe@mediaman works.
+- Package openssh-server: installed.
+- Service ssh: enabled and active.
+  Check: systemctl is-enabled ssh; systemctl is-active ssh
+- /etc/ssh/sshd_config: has a Match Address block for the LAN subnet
+  with AllowUsers mjeffe, closed by Match All.
+  Check: grep -A3 'Match Address' /etc/ssh/sshd_config
+- Package ufw: installed.
+- Firewall: active, default incoming denied, default outgoing allowed.
+  Check: sudo ufw status verbose
+- Firewall: allows port 22 tcp only from the LAN subnet.
+  Check: sudo ufw status verbose
+- ssh mjeffe@mediaman works from another LAN host.
 - A connection attempt from outside the LAN is refused.
 
 ## Gotchas

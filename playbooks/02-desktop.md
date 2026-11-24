@@ -54,14 +54,17 @@ manager, and no GNOME left behind.
 
        sudo systemctl enable sddm
 
-## Verify
+## Desired State
 
-- dpkg -l gnome-shell shows the package is not installed.
-- dpkg -l lxqt-core openbox sddm shows installed.
-- systemctl is-enabled sddm shows enabled.
-- After login, echo $XDG_CURRENT_DESKTOP shows LXQt and
-  $XDG_SESSION_TYPE shows x11.
-- df -h / shows reasonable free space after the purge.
+- Package gnome-shell: not installed.
+- Packages lxqt-core, openbox, sddm: installed.
+- Service sddm: enabled.
+  Check: systemctl is-enabled sddm
+- Session: LXQt on X11.
+  Check: echo $XDG_CURRENT_DESKTOP $XDG_SESSION_TYPE
+- Package firmware-iwlwifi: installed (it must survive the purge).
+- Root filesystem: under 60 percent used.
+  Check: df -h /
 
 ## Gotchas
 
